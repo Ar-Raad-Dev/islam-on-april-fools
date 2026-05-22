@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Munfa Mushtaq! 🎨✨</title>
+    
+    <!-- Professional & Elegant Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Amiri+Quran&family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- GSAP for Smooth Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <!-- Canvas Confetti for Balloon Pops & Fireworks -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <style>
+        :root {
+            --gold-light: #fcf6ba;
+            --gold-main: #bf953f;
+            --gold-dark: #b38728;
+            --wood-light: #e6c280;
+            --wood-dark: #c19a6b;
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            /* Artistic Watercolor/Canvas Background */
+            background-color: #fdfbf7;
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(244, 208, 203, 0.4) 0%, transparent 50%),
+                radial-gradient(circle at 85% 30%, rgba(203, 228, 244, 0.4) 0%, transparent 50%),
+                radial-gradient(circle at 50% 80%, rgba(222, 244, 203, 0.3) 0%, transparent 50%);
+            background-attachment: fixed;
+            overflow-x: hidden;
+            cursor: default;
+            color: #4a4a4a;
+        }
+        
+        .script-font { font-family: 'Great Vibes', cursive; }
+        .serif-font { font-family: 'Playfair Display', serif; }
+        .arabic-font { font-family: 'Amiri Quran', serif; line-height: 2.2; }
+
+        .gold-text {
+            background: linear-gradient(to right, var(--gold-dark), var(--gold-main), var(--gold-light), var(--gold-main));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            background-size: 200% auto;
+            animation: shine 5s linear infinite;
+        }
+
+        @keyframes shine {
+            to { background-position: 200% center; }
+        }
+
+        /* Floating Audio Button */
+        #audio-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 100;
+            background: linear-gradient(135deg, var(--gold-light), var(--gold-main));
+            border: 2px solid #fff;
+            box-shadow: 0 10px 25px rgba(191, 149, 63, 0.4);
+            transition: all 0.3s ease;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        #audio-btn:hover { transform: scale(1.1) rotate(10deg); }
+        .playing-pulse { animation: pulseGold 2s infinite; }
+        
+        @keyframes pulseGold {
+            0% { box-shadow: 0 0 0 0 rgba(191, 149, 63, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(191, 149, 63, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(191, 149, 63, 0); }
+        }
+
+        /* Name Balloons (Static but floating) */
+        .name-balloon-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+            z-index: 20;
+            position: relative;
+        }
+        .name-balloon {
+            width: 60px; height: 80px;
+            background: radial-gradient(circle at 30% 30%, #fff, #fce4ec);
+            border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+            display: flex; justify-content: center; align-items: center;
+            font-family: 'Playfair Display', serif; font-size: 28px; font-weight: bold;
+            color: var(--gold-dark);
+            border: 1px solid rgba(255,255,255,0.8);
+            box-shadow: inset -5px -5px 15px rgba(0,0,0,0.1), 0 15px 20px rgba(0,0,0,0.15);
+            position: relative;
+            animation: float 4s ease-in-out infinite;
+        }
+        @media (min-width: 768px) {
+            .name-balloon { width: 80px; height: 105px; font-size: 36px; gap: 20px; }
+        }
+        .name-balloon::after {
+            content: ''; position: absolute; bottom: -40px; left: 50%;
+            width: 2px; height: 40px; background: rgba(191, 149, 63, 0.5);
+            transform: translateX(-50%);
+        }
+        .name-balloon:nth-child(1) { animation-delay: 0s; background: radial-gradient(circle at 30% 30%, #fff, #fce4ec); } /* Pink */
+        .name-balloon:nth-child(2) { animation-delay: 0.5s; background: radial-gradient(circle at 30% 30%, #fff, #e3f2fd); } /* Blue */
+        .name-balloon:nth-child(3) { animation-delay: 1s; background: radial-gradient(circle at 30% 30%, #fff, #f3e5f5); } /* Purple */
+        .name-balloon:nth-child(4) { animation-delay: 1.5s; background: radial-gradient(circle at 30% 30%, #fff, #e8f5e9); } /* Green */
+        .name-balloon:nth-child(5) { animation-delay: 2s; background: radial-gradient(circle at 30% 30%, #fff, #fff8e1); } /* Yellow */
+
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(3deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+
+        /* Interactive Floating Balloons */
+        .interactive-balloon-container {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 5;
+        }
+        .interactive-balloon {
+            width: 50px; height: 65px;
+            border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+            position: absolute; bottom: -100px;
+            pointer-events: auto; cursor: crosshair;
+            box-shadow: inset -5px -5px 15px rgba(0,0,0,0.15);
+            transition: transform 0.1s;
+        }
+        .interactive-balloon:active { transform: scale(0.9); }
+        .interactive-balloon::before {
+            content: ''; position: absolute; bottom: -6px; left: 50%;
+            transform: translateX(-50%);
+            border-left: 4px solid transparent; border-right: 4px solid transparent;
+            border-bottom: 6px solid inherit; 
+        }
+        .interactive-balloon::after {
+            content: ''; position: absolute; bottom: -40px; left: 50%;
+            width: 1px; height: 40px; background: rgba(0,0,0,0.2);
+        }
+
+        /* Embroidery Hoop Art styling */
+        .embroidery-hoop {
+            border: 16px solid var(--wood-light);
+            border-radius: 50%;
+            outline: 2px solid var(--wood-dark);
+            box-shadow: 
+                inset 0 0 20px rgba(0,0,0,0.6), 
+                0 15px 30px rgba(0,0,0,0.15);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s;
+            position: relative;
+            z-index: 10;
+            background-color: #fff9f0; /* Canvas fabric color */
+            background-image: url('https://www.transparenttextures.com/patterns/woven-light.png'); /* Subtle fabric texture */
+        }
+        .embroidery-hoop::before {
+            content: ''; position: absolute; top: -28px; left: 50%;
+            transform: translateX(-50%); width: 35px; height: 18px;
+            background: linear-gradient(to right, var(--gold-dark), var(--gold-light), var(--gold-dark));
+            border-radius: 4px; z-index: 10;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        }
+        .embroidery-hoop::after {
+            content: ''; position: absolute; top: -35px; left: 50%;
+            transform: translateX(-50%); width: 12px; height: 12px;
+            background: var(--gold-main); border-radius: 50%;
+        }
+        .embroidery-hoop:hover { 
+            transform: scale(1.05) rotate(3deg); 
+            box-shadow: inset 0 0 25px rgba(0,0,0,0.7), 0 25px 40px rgba(0,0,0,0.2);
+        }
+
+        /* Gold Framed Cake */
+        .cake-container {
+            position: relative;
+            display: inline-block;
+            border-radius: 20px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.5);
+            border: 2px solid var(--gold-light);
+            box-shadow: 0 10px 30px rgba(191, 149, 63, 0.2);
+            animation: float 6s ease-in-out infinite alternate;
+        }
+
+        /* Elegant Glass Card for Dua */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            border-radius: 24px;
+            box-shadow: 
+                0 20px 40px rgba(0,0,0,0.05),
+                inset 0 0 0 2px rgba(191, 149, 63, 0.3); /* Inner gold border */
+            position: relative;
+            overflow: hidden;
+        }
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 5px;
+            background: linear-gradient(to right, var(--gold-dark), var(--gold-light), var(--gold-dark));
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- AUDIO ELEMENT (Hidden) -->
+    <!-- REPLACE 'your_voice_message_or_dua.mp3' WITH YOUR ACTUAL AUDIO LINK -->
+    <audio id="bg-audio" loop>
+        <source src="your_voice_message_or_dua.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Floating Audio Control -->
+    <button id="audio-btn" onclick="toggleAudio()" aria-label="Play Audio">
+        🔇
+    </button>
+
+    <!-- Container for dynamic bursting balloons -->
+    <div id="balloon-container" class="interactive-balloon-container"></div>
+
+    <!-- HERO SECTION -->
+    <section class="min-h-screen flex flex-col items-center justify-center text-center px-4 pt-10 relative z-10" id="hero">
+        <div class="hero-content w-full max-w-4xl mx-auto">
+            
+            <!-- Name Balloons -->
+            <div class="name-balloon-container mb-8">
+                <div class="name-balloon">M</div>
+                <div class="name-balloon">U</div>
+                <div class="name-balloon">N</div>
+                <div class="name-balloon">F</div>
+                <div class="name-balloon">A</div>
+            </div>
+
+            <!-- Cake Image (Artistic theme) -->
+            <div class="cake-container mb-8 rounded-full overflow-hidden w-48 h-48 md:w-64 md:h-64 mx-auto border-4 border-double" style="border-color: var(--gold-main);">
+                <img src="https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Beautiful Birthday Cake" class="w-full h-full object-cover">
+            </div>
+
+            <!-- Titles -->
+            <h2 class="text-4xl md:text-6xl text-gray-600 mb-2 font-bold tracking-widest uppercase serif-font">Happy Birthday</h2>
+            <h1 class="text-7xl md:text-9xl font-bold mb-6 script-font gold-text drop-shadow-md">Munfa Mushtaq</h1>
+            
+            <p class="text-lg md:text-2xl text-gray-600 max-w-2xl mx-auto leading-relaxed mb-10 italic serif-font">
+                "Celebrating the artistry in your soul and the beauty you weave into the world."
+            </p>
+            
+            <button onclick="shootConfetti()" class="px-10 py-4 bg-white text-yellow-700 border-2 border-yellow-500 font-bold rounded-full shadow-lg hover:shadow-2xl hover:bg-yellow-50 hover:scale-105 transition-all text-xl uppercase tracking-wider serif-font">
+                Celebrate Magic ✨
+            </button>
+            <p class="mt-6 text-sm text-gray-500 font-bold animate-pulse uppercase tracking-wider">Tap the floating balloons to pop them!</p>
+        </div>
+    </section>
+
+    <!-- EMBROIDERY ART SHOWCASE SECTION -->
+    <section class="py-24 px-4 relative z-10">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-20 gallery-title">
+                <h2 class="text-sm md:text-base text-gray-500 tracking-[0.3em] uppercase mb-4 font-bold">Munfa's Masterpieces</h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-transparent via-yellow-600 to-transparent mx-auto mb-6"></div>
+                <h3 class="text-5xl md:text-6xl script-font gold-text">The Canvas of Your Life</h3>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8 items-center justify-items-center art-gallery">
+                
+                <!-- Art Piece 1 -->
+                <div class="art-piece flex flex-col items-center">
+                    <div class="w-64 h-64 md:w-72 md:h-72 embroidery-hoop overflow-hidden flex items-center justify-center p-2">
+                        <img src="art1.jpg" alt="Velvet Craft" class="w-full h-full object-cover rounded-full shadow-inner opacity-90 hover:opacity-100 transition-opacity">
+                    </div>
+                    <p class="mt-8 serif-font text-xl text-gray-700 italic">Stitched with Love</p>
+                </div>
+
+                <!-- Art Piece 2 (Center, slightly larger) -->
+                <div class="art-piece flex flex-col items-center transform md:-translate-y-12">
+                    <div class="w-72 h-72 md:w-96 md:h-96 embroidery-hoop overflow-hidden flex items-center justify-center p-2">
+                        <img src="art2.jpg" alt="Embroidery Art" class="w-full h-full object-cover rounded-full shadow-inner opacity-90 hover:opacity-100 transition-opacity">
+                    </div>
+                    <p class="mt-8 script-font text-4xl gold-text">Golden Hands</p>
+                </div>
+
+                <!-- Art Piece 3 -->
+                <div class="art-piece flex flex-col items-center">
+                    <div class="w-64 h-64 md:w-72 md:h-72 embroidery-hoop overflow-hidden flex items-center justify-center p-2">
+                        <img src="art3.jpg" alt="Money Bouquet" class="w-full h-full object-cover rounded-full shadow-inner opacity-90 hover:opacity-100 transition-opacity">
+                    </div>
+                    <p class="mt-8 serif-font text-xl text-gray-700 italic">Artistic Soul</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROFESSIONAL ISLAMIC DUA SECTION -->
+    <section class="py-24 px-4 relative z-10 flex justify-center items-center">
+        <div class="max-w-4xl w-full glass-card p-10 md:p-16 text-center dua-section">
+            <h2 class="text-sm md:text-base text-gray-500 tracking-[0.2em] uppercase mb-8 font-bold">A Special Prayer For You</h2>
+            
+            <!-- Professional Calligraphy Font -->
+            <div class="text-4xl md:text-6xl arabic-font text-gray-800 mb-6 drop-shadow-sm" dir="rtl">
+                بَارَكَ اللّٰهُ فِي عُمْرِكِ وَعَمَلِكِ
+            </div>
+            
+            <p class="text-sm text-gray-500 mb-8 font-light italic">"May Allah bless your life and your deeds."</p>
+
+            <div class="w-16 h-px bg-yellow-500 mx-auto mb-8"></div>
+            
+            <p class="text-lg md:text-2xl text-gray-700 font-light leading-relaxed mb-8 serif-font">
+                May Allah (SWT) bless you with endless happiness, perfect health, and boundless success in this world and the Hereafter. May your artistic hands continue to weave beauty, and may Allah grant immense Barakah in your life, your family, and your art.
+            </p>
+            
+            <p class="text-4xl script-font gold-text font-bold mt-8">Ameen Summa Ameen 🤲✨</p>
+        </div>
+    </section>
+
+    <footer class="py-10 text-center text-gray-400 relative z-10 text-sm tracking-widest uppercase">
+        <p>Made with ❤️ to celebrate the amazing Munfa Mushtaq</p>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", (event) => {
+            gsap.registerPlugin(ScrollTrigger);
+
+            // 1. Initial Page Animations
+            // Specific selectors prevent targeting invalid text nodes which can cause getBoundingClientRect errors
+            gsap.from(".hero-content .name-balloon-container, .hero-content .cake-container, .hero-content h2, .hero-content h1, .hero-content p, .hero-content button", { 
+                y: 30, 
+                opacity: 0, 
+                duration: 1.2, 
+                stagger: 0.2, 
+                ease: "power3.out", 
+                delay: 0.2 
+            });
+
+            gsap.from(".gallery-title", { 
+                scrollTrigger: { trigger: ".gallery-title", start: "top 85%" }, 
+                y: 30, opacity: 0, duration: 1 
+            });
+
+            gsap.from(".art-piece", { 
+                scrollTrigger: { trigger: ".art-gallery", start: "top 80%" }, 
+                scale: 0.85, opacity: 0, y: 50, duration: 1.2, stagger: 0.3, ease: "back.out(1.5)" 
+            });
+
+            gsap.from(".dua-section", { 
+                scrollTrigger: { trigger: ".dua-section", start: "top 85%" }, 
+                y: 50, opacity: 0, duration: 1.5, ease: "power2.out" 
+            });
+        });
+
+        // 2. Audio Player Logic
+        const audio = document.getElementById("bg-audio");
+        const audioBtn = document.getElementById("audio-btn");
+        let isPlaying = false;
+
+        function toggleAudio() {
+            if (isPlaying) {
+                audio.pause();
+                audioBtn.innerHTML = "🔇";
+                audioBtn.classList.remove("playing-pulse");
+            } else {
+                audio.play().catch(e => console.log("Audio play blocked by browser:", e));
+                audioBtn.innerHTML = "🔊";
+                audioBtn.classList.add("playing-pulse");
+                shootConfetti(); // Celebrate on play
+            }
+            isPlaying = !isPlaying;
+        }
+
+        // 3. Main Fireworks Function
+        function shootConfetti() {
+            var duration = 3 * 1000;
+            var end = Date.now() + duration;
+            var colors = ['#bf953f', '#fcf6ba', '#ffb6c1', '#add8e6', '#ffffff'];
+
+            (function frame() {
+                confetti({ particleCount: 5, angle: 60, spread: 55, origin: { x: 0 }, colors: colors });
+                confetti({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1 }, colors: colors });
+                if (Date.now() < end) { requestAnimationFrame(frame); }
+            }());
+        }
+
+        // 4. Interactive Bursting Balloons Logic (Soft Pastel Colors)
+        const balloonColors = ['#f8bbd0', '#bbdefb', '#e1bee7', '#fff9c4', '#b2dfdb', '#ffccbc'];
+        const container = document.getElementById('balloon-container');
+
+        function createBalloon() {
+            const balloon = document.createElement('div');
+            balloon.classList.add('interactive-balloon');
+            
+            // Random pastel color
+            const color = balloonColors[Math.floor(Math.random() * balloonColors.length)];
+            
+            // Complex gradient to make it look 3D
+            balloon.style.background = `radial-gradient(circle at 30% 30%, #ffffff, ${color})`;
+            
+            // Inject dynamic CSS to color the balloon knot properly
+            const style = document.createElement('style');
+            const uniqueClass = 'balloon-' + Math.random().toString(36).substr(2, 9);
+            balloon.classList.add(uniqueClass);
+            style.innerHTML = `.${uniqueClass}::before { border-bottom-color: ${color}; }`;
+            document.head.appendChild(style);
+
+            // Random starting position (X axis) avoiding the edges too closely
+            balloon.style.left = (Math.random() * 80 + 10) + 'vw';
+            container.appendChild(balloon);
+
+            // Animate floating up using GSAP
+            const duration = Math.random() * 6 + 8; // 8 to 14 seconds (slower, more elegant)
+            const tl = gsap.to(balloon, {
+                y: -window.innerHeight - 200, 
+                x: "+=" + (Math.random() * 150 - 75), // Gentle sway
+                rotation: Math.random() * 30 - 15, // Gentle rotation
+                duration: duration,
+                ease: "none",
+                onComplete: () => {
+                    if(balloon.parentNode) balloon.remove();
+                    if(style.parentNode) style.remove();
+                }
+            });
+
+            // Pop interaction (works on mobile tap as well)
+            balloon.addEventListener('pointerdown', (e) => {
+                const rect = balloon.getBoundingClientRect();
+                const popX = (rect.left + rect.width / 2) / window.innerWidth;
+                const popY = (rect.top + rect.height / 2) / window.innerHeight;
+
+                // Stop animation and hide immediately
+                tl.kill();
+                balloon.style.display = 'none';
+
+                // Burst Confetti matching the balloon color
+                confetti({
+                    particleCount: 30,
+                    spread: 70,
+                    origin: { x: popX, y: popY },
+                    colors: [color, '#ffffff', '#bf953f'],
+                    scalar: 0.8
+                });
+
+                setTimeout(() => {
+                    if(balloon.parentNode) balloon.remove();
+                    if(style.parentNode) style.remove();
+                }, 100);
+            });
+        }
+
+        // Spawn balloons periodically
+        setInterval(createBalloon, 1500); // 1.5 seconds
+
+        // Initial bursts and spawn on load
+        window.onload = () => {
+            setTimeout(shootConfetti, 1000);
+            // Spawn a few initial balloons across the screen
+            for(let i=0; i<6; i++) { 
+                setTimeout(createBalloon, i * 400); 
+            }
+        };
+    </script>
+</body>
+</html>
